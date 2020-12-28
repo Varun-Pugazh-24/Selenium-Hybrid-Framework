@@ -5,7 +5,7 @@
     <classes>
       <class name="com.tricentis.sampleapp.Test.LoginTest">
         <methods>
-          <include name="loginTestScenario"/>
+          <include name="TestCase_01" invocation-numbers="1"/>
         </methods>
       </class> <!-- com.tricentis.sampleapp.Test.LoginTest -->
     </classes>

@@ -1,77 +1,70 @@
 package com.tricentis.sampleapp.TestEngine;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.tricentis.sampleapp.Base.Base;
+import com.tricentis.sampleapp.Base.BrowserFactory;
+import com.tricentis.sampleapp.Base.DriverFactory;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel.Builder;
 
 public class KeywordEngine extends Base {
 
-	public WebDriver driver;
+	public static WebDriver driver;
 	public static Properties prop;
 
 	public static Workbook book;
 	public static Sheet sheet;
-	public WebElement element;
-	Select select;
-	
-	HashMap<String,String> assertData = new HashMap<String,String>();
+	public static WebElement element;
+	static Select select;
 
-	String testStep = null;
-	String value = null;
-	
+	static HashMap<String, String> assertData = new HashMap<String, String>();
+
+	static String testStep = null;
+	public static String value = null;
+	public static String action = null;
 
 	@SuppressWarnings("unchecked")
-	public <T> HashMap<T,T> startExecution(String sheetName) {
-
+	public static <T> HashMap<T, T> startExecution(String sheetName) {
+ 
 		String locatorType = null;
 		String locatorValue = null;
 
-		FileInputStream file = null;
-		try {
-			file = new FileInputStream(SCENARIO_SHEET_PATH);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		Builder ExcelBuilder = new ReadWriteExcel.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
 
-		try {
-			book = WorkbookFactory.create(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		 int RowCount = ExcelBuilder.build().GetRowCount();
 
-		sheet = book.getSheet(sheetName);
-		int k = 0;
-		for (int i = 0; i < sheet.getLastRowNum(); i++) {
+		for (int i = 0; i < RowCount; i++) {
 
 			try {
-					
-				testStep = sheet.getRow(i + 1).getCell(k + 0).toString().trim();
-				locatorType = sheet.getRow(i + 1).getCell(k + 1).toString().trim();
-				locatorValue = sheet.getRow(i + 1).getCell(k + 2).toString().trim();
-				String action = sheet.getRow(i + 1).getCell(k + 3).toString().trim();
-				value = sheet.getRow(i + 1).getCell(k + 4).toString().trim();
+
+				testStep = ExcelBuilder.setRow(i + 1).setColumn(0).build().ReadFromExcel();
+				locatorType = ExcelBuilder.setRow(i + 1).setColumn(1).build().ReadFromExcel();
+				locatorValue = ExcelBuilder.setRow(i + 1).setColumn(2).build().ReadFromExcel();
+				action = ExcelBuilder.setRow(i + 1).setColumn(3).build().ReadFromExcel();
+				value = ExcelBuilder.setRow(i + 1).setColumn(4).build().ReadFromExcel();
 
 				switch (action) {
 				case "open browser":
 					prop = Base.init_properties();
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
+						
+						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(prop.getProperty("browser")));
+						driver = DriverFactory.getInstance().getDriver();
 
-						driver = this.init_driver(prop.getProperty("browser"));
 
 					} else {
-
-						driver = this.init_driver(value);
+						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(value));
+						driver = DriverFactory.getInstance().getDriver();
 					}
 					break;
 
@@ -91,43 +84,42 @@ public class KeywordEngine extends Base {
 
 				case "quit":
 					Thread.sleep(2000);
-					driver.quit();
+					DriverFactory.getInstance().getDriver().quit();
 					break;
 
 				default:
 					break;
 				}
-				
-				
+
 				Thread.sleep(2000);
 				switch (locatorType) {
 				case "id":
 					element = driver.findElement(By.id(locatorValue));
-					locatorAction( action, value);
+					locatorAction(action, value);
 					locatorType = null;
 					break;
-					
+
 				case "xpath":
 					element = driver.findElement(By.xpath(locatorValue));
-					locatorAction( action, value);
+					locatorAction(action, value);
 					locatorType = null;
 					break;
-					
+
 				case "class":
 					element = driver.findElement(By.className(locatorValue));
-					locatorAction( action, value);
+					locatorAction(action, value);
 					locatorType = null;
 					break;
-					
+
 				case "name":
 					element = driver.findElement(By.name(locatorValue));
-					locatorAction( action, value);
+					locatorAction(action, value);
 					locatorType = null;
 					break;
-					
+
 				case "css":
 					element = driver.findElement(By.cssSelector(locatorValue));
-					locatorAction( action, value);
+					locatorAction(action, value);
 					locatorType = null;
 					break;
 
@@ -137,7 +129,7 @@ public class KeywordEngine extends Base {
 					element.click();
 					locatorType = null;
 					break;
-					
+
 				case "partialLinkText":
 
 					element = driver.findElement(By.partialLinkText(locatorValue));
@@ -151,16 +143,14 @@ public class KeywordEngine extends Base {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 
 		}
-		
+
 		return (HashMap<T, T>) assertData;
 
 	}
 
-	private void locatorAction(String action, String value) throws Exception {
-		
+	private static void locatorAction(String action, String value) throws Exception {
 
 		if (action.equalsIgnoreCase("sendkeys")) {
 			element.clear();
@@ -168,23 +158,23 @@ public class KeywordEngine extends Base {
 
 		} else if (action.equalsIgnoreCase("click")) {
 			element.click();
-		}else if (action.equalsIgnoreCase("isDisplayed")) {
-			Thread.sleep(3000);
+		} else if (action.equalsIgnoreCase("isDisplayed")) {
+			Thread.sleep(2000);
 			element.isDisplayed();
-		}else if (action.equalsIgnoreCase("getText")) {
-			Thread.sleep(3000);
+		} else if (action.equalsIgnoreCase("getText")) {
+			Thread.sleep(2000);
 			String elementText = element.getText();
-			assertData.put(elementText,value);
-		}else if (action.equalsIgnoreCase("isSelected")) {
-			Thread.sleep(3000);
+			assertData.put(elementText, value);
+		} else if (action.equalsIgnoreCase("isSelected")) {
+			Thread.sleep(2000);
 			element.isSelected();
-		}else if (action.equalsIgnoreCase("isEnabled")) {
-			Thread.sleep(3000);
+		} else if (action.equalsIgnoreCase("isEnabled")) {
+			Thread.sleep(2000);
 			element.isEnabled();
-		}else if (action.equalsIgnoreCase("select")) {
-			Thread.sleep(3000);
-			 select = new Select(element);
-			 select.selectByValue(value);
+		} else if (action.equalsIgnoreCase("select")) {
+			Thread.sleep(2000);
+			select = new Select(element);
+			select.selectByValue(value);
 		}
 	}
 

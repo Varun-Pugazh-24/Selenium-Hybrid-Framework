@@ -4,51 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.opera.OperaOptions;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel.Builder;
 
 public class Base extends Constants {
-
-	
-	public WebDriver driver;
-	static ChromeDriver chromedriver;
-	static InternetExplorerDriver iedriver;
-	static EdgeDriver edgedriver;
-	static FirefoxDriver firefoxdriver;
-	static OperaDriver operadriver;
 	static Properties prop;
-	
-
-	public WebDriver init_driver(String browserName) throws Exception {
-
-		switch (browserName.toLowerCase()) {
-
-		case "chrome":
-			return StartChromeBrowser();
-
-		case "ie":
-			return StartIEBrowser();
-
-		case "edge":
-			return StartEdgeBrowser();
-
-		case "firefox":
-			return StartFireFoxBrowser();
-
-		case "opera":
-			return StartOperaBrowser();
-
-		}
-		return null;
-
-	}
 
 	public static Properties init_properties() {
 
@@ -64,75 +24,30 @@ public class Base extends Constants {
 		return prop;
 
 	}
-	
 
-	public static ChromeDriver StartChromeBrowser() {
+	public String[][] getTestSuiteArray(String sheetName) {
+		Builder ExcelBuilder = new ReadWriteExcel.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
+		int totalRows = ExcelBuilder.build().GetRowCount();
+		int totalColumns = 2;
+		int ci, cj;
 
-		ChromeOptions options = new ChromeOptions();
-		if (prop.getProperty("headless").equals("yes")) {
-			options.addArguments("--headless");
-			System.setProperty("webdriver.chrome.driver", prop.getProperty("ChromeDriver"));
-			chromedriver = new ChromeDriver(options);
+		String[][] testSuiteSheetArray = new String[totalRows][totalColumns];
 
-		} else {
-			options.addArguments("--disable-notifications");
-			System.setProperty("webdriver.chrome.driver", prop.getProperty("ChromeDriver"));
-			chromedriver = new ChromeDriver(options);
-			chromedriver.manage().window().maximize();
+		ci = 0;
 
-		}
+		for (int i = 1; i <= totalRows; i++, ci++) {
 
-		return chromedriver;
-	}
+			cj = 0;
 
-	public static InternetExplorerDriver StartIEBrowser() {
+			for (int j = 1; j <= totalColumns; j++, cj++) {
 
-		System.setProperty("webdriver.ie.driver", prop.getProperty("IEDriver"));
-		iedriver = new InternetExplorerDriver();
-		iedriver.manage().window().maximize();
-		return iedriver;
-	}
+				testSuiteSheetArray[ci][cj] = ExcelBuilder.setRow(i).setColumn(j).build().ReadFromExcel();
 
-	public static EdgeDriver StartEdgeBrowser() {
-		System.setProperty("webdriver.edge.driver", prop.getProperty("EdgeDriver"));
-		edgedriver = new EdgeDriver();
-		edgedriver.manage().window().maximize();
-		return edgedriver;
-	}
-
-	public static FirefoxDriver StartFireFoxBrowser() {
-		FirefoxOptions options = new FirefoxOptions();
-		if (prop.getProperty("headless").equals("yes")) {
-			options.addArguments("--headless");
-			System.setProperty("webdriver.gecko.driver", prop.getProperty("FireFoxDriver"));
-			firefoxdriver = new FirefoxDriver();
-
-		} else {
-			options.addArguments("--disable-notifications");
-			System.setProperty("webdriver.gecko.driver", prop.getProperty("FireFoxDriver"));
-			firefoxdriver = new FirefoxDriver();
-			firefoxdriver.manage().window().maximize();
+			}
 
 		}
 
-		return firefoxdriver;
-	}
-
-	public static OperaDriver StartOperaBrowser() {
-		OperaOptions options = new OperaOptions();
-		if (prop.getProperty("headless").equals("yes")) {
-			options.addArguments("--headless");
-			System.setProperty("webdriver.opera.driver", prop.getProperty("OperaDriver"));
-			operadriver = new OperaDriver();
-		} else {
-			options.addArguments("--disable-notifications");
-			System.setProperty("webdriver.opera.driver", prop.getProperty("OperaDriver"));
-			operadriver = new OperaDriver();
-			operadriver.manage().window().maximize();
-
-		}
-
-		return operadriver;
+		return testSuiteSheetArray;
 	}
 
 }

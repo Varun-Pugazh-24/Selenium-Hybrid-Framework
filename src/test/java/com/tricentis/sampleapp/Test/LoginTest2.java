@@ -1,34 +1,27 @@
 package com.tricentis.sampleapp.Test;
 
-import java.util.HashMap;
-
 import org.testng.annotations.Test;
 
 import com.tricentis.sampleapp.TestEngine.KeywordEngine;
-import com.tricentis.sampleapp.Utilities.ReadExcel;
-import com.tricentis.sampleapp.Utilities.WriteExcel;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel;
+import com.tricentis.sampleapp.Utilities.ReadWriteExcel.Builder;
 
 public class LoginTest2 extends KeywordEngine {
 
 	public KeywordEngine engine;
-	HashMap<String, String> assertValue;
 
 	@Test
 	public void loginTestScenario() {
+		
+		Builder ExcelBuilder = new ReadWriteExcel.Builder(SCENARIO_SHEET_PATH).setSheetName("TC01");
+		System.out.println(ExcelBuilder.build().GetRowCount());
 
-		System.out.println(new ReadExcel.ReadBuilder(SCENARIO_SHEET_PATH).getRow(1).getColumn(1)
-				.getSheetName("testcase1").getValue().ReadExcelData());
-
-		System.out.println(new ReadExcel.ReadBuilder(SCENARIO_SHEET_PATH)
-				.getSheetName("testcase1").getValue().GetRowCount());
+		System.out.println(ExcelBuilder.setRow(1).setColumn(0)
+				.build().ReadFromExcel());
 		
 		
-		new WriteExcel.WriteBuilder(SCENARIO_SHEET_PATH).setRow(1).setColumn(5).setSheetName("testcase1")
-				.setValue("Passed").WriteExcelData();
-		new WriteExcel.WriteBuilder(SCENARIO_SHEET_PATH).setRow(2).setColumn(5).setSheetName("testcase1")
-				.setValue("Passed").WriteExcelData();
-		new WriteExcel.WriteBuilder(SCENARIO_SHEET_PATH).setRow(3).setColumn(5).setSheetName("testcase1")
-				.setValue("Passed").WriteExcelData();
+		ExcelBuilder.setRow(1).setColumn(5).setInputToWrite("Passed New")
+		.build().WriteToExcel();
 
 	}
 

@@ -7,10 +7,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class WriteExcel {
+public class ReadWriteExcel {
 
 	public static Workbook book;
 	public static Sheet sheet;
+	public static FileInputStream FIS;
+	public static FileOutputStream FOUT;
 
 	String SheetName;
 	String input;
@@ -18,18 +20,22 @@ public class WriteExcel {
 	int Column;
 	String ExcelPath;
 
-	private WriteExcel() {
-
+	private ReadWriteExcel(Builder builder) {
+		this.SheetName = builder.SheetName;
+		this.input = builder.input;
+		this.Row = builder.Row;
+		this.Column = builder.Column;
+		this.ExcelPath = builder.ExcelPath;
 	}
 
-	public void WriteExcelData() {
+	public void WriteToExcel() {
 
 		try {
-			FileInputStream FIS = new FileInputStream(this.getExcelPath());
+			FIS = new FileInputStream(this.getExcelPath());
 			book = WorkbookFactory.create(FIS);
 			sheet = book.getSheet(this.getSheetName());
 			sheet.getRow(this.getRow()).createCell(this.getColumn()).setCellValue(this.getInput());
-			FileOutputStream FOUT = new FileOutputStream(this.getExcelPath());
+			FOUT = new FileOutputStream(this.getExcelPath());
 			book.write(FOUT);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -37,7 +43,30 @@ public class WriteExcel {
 
 	}
 
+	public String ReadFromExcel() {
+
+		try {
+			FIS = new FileInputStream(this.getExcelPath());
+			book = WorkbookFactory.create(FIS);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		sheet = book.getSheet(this.getSheetName());
+		String Data = (String) sheet.getRow(this.getRow()).getCell(this.getColumn()).getStringCellValue().trim();
+
+		return Data;
+
+	}
+
 	public int GetRowCount() {
+
+		try {
+			FIS = new FileInputStream(this.getExcelPath());
+			book = WorkbookFactory.create(FIS);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		sheet = book.getSheet(this.getSheetName());
 		int row = sheet.getLastRowNum();
@@ -85,13 +114,7 @@ public class WriteExcel {
 		ExcelPath = excelPath;
 	}
 
-	@Override
-	public String toString() {
-		return "WriteExcel [SheetName=" + SheetName + ", input=" + input + ", Row=" + Row + ", Column=" + Column
-				+ ", ExcelPath=" + ExcelPath + "]";
-	}
-
-	public static class WriteBuilder {
+	public static class Builder {
 
 		private String SheetName;
 		private String input;
@@ -99,42 +122,41 @@ public class WriteExcel {
 		private int Column;
 		private String ExcelPath;
 
-		public WriteBuilder(String ExcelPath) {
+		public Builder(String ExcelPath) {
 
 			this.ExcelPath = ExcelPath;
 		}
 
-		public WriteBuilder setSheetName(String SheetName) {
+		public Builder setSheetName(String SheetName) {
 
 			this.SheetName = SheetName;
 
 			return this;
 		}
 
-		public WriteBuilder setRow(int Row) {
+		public Builder setRow(int Row) {
 
 			this.Row = Row;
 
 			return this;
 		}
 
-		public WriteBuilder setColumn(int Column) {
+		public Builder setColumn(int Column) {
 
 			this.Column = Column;
 
 			return this;
 		}
 
-		public WriteExcel setValue(String input) {
+		public Builder setInputToWrite(String input) {
 
 			this.input = input;
-			WriteExcel we = new WriteExcel();
-			we.setSheetName(this.SheetName);
-			we.setInput(this.input);
-			we.setRow(this.Row);
-			we.setColumn(this.Column);
-			we.setExcelPath(this.ExcelPath);
-			return we;
+
+			return this;
+		}
+
+		public ReadWriteExcel build() {
+			return new ReadWriteExcel(this);
 		}
 
 	}

@@ -1,16 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="0" total="4" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="59661" started-at="2020-12-26T05:59:37 IST" finished-at="2020-12-26T06:00:37 IST">
+  <suite name="Default suite" duration-ms="58485" started-at="2020-12-29T04:37:27 IST" finished-at="2020-12-29T04:38:26 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="59661" started-at="2020-12-26T05:59:37 IST" finished-at="2020-12-26T06:00:37 IST">
+    <test name="Default test" duration-ms="58485" started-at="2020-12-29T04:37:27 IST" finished-at="2020-12-29T04:38:26 IST">
       <class name="com.tricentis.sampleapp.Test.LoginTest">
-        <test-method status="PASS" signature="loginTestScenario()[pri:0, instance:com.tricentis.sampleapp.Test.LoginTest@69a3d1d]" name="loginTestScenario" duration-ms="59607" started-at="2020-12-26T05:59:37 IST" finished-at="2020-12-26T06:00:37 IST">
+        <test-method status="PASS" signature="TestCase_01(java.lang.String, java.lang.String)[pri:0, instance:com.tricentis.sampleapp.Test.LoginTest@23d2a7e8]" name="TestCase_01" duration-ms="56958" started-at="2020-12-29T04:37:29 IST" data-provider="TestCaseSheet" finished-at="2020-12-29T04:38:26 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[TC01]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Yes]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginTestScenario -->
+        </test-method> <!-- TestCase_01 -->
+        <test-method status="PASS" signature="TestCase_01(java.lang.String, java.lang.String)[pri:0, instance:com.tricentis.sampleapp.Test.LoginTest@23d2a7e8]" name="TestCase_01" duration-ms="0" started-at="2020-12-29T04:38:26 IST" data-provider="TestCaseSheet" finished-at="2020-12-29T04:38:26 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[TC02]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[No]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestCase_01 -->
+        <test-method status="PASS" signature="TestCase_01(java.lang.String, java.lang.String)[pri:0, instance:com.tricentis.sampleapp.Test.LoginTest@23d2a7e8]" name="TestCase_01" duration-ms="0" started-at="2020-12-29T04:38:26 IST" data-provider="TestCaseSheet" finished-at="2020-12-29T04:38:26 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[TC03]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[No]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestCase_01 -->
+        <test-method status="PASS" signature="TestCase_01(java.lang.String, java.lang.String)[pri:0, instance:com.tricentis.sampleapp.Test.LoginTest@23d2a7e8]" name="TestCase_01" duration-ms="2" started-at="2020-12-29T04:38:26 IST" data-provider="TestCaseSheet" finished-at="2020-12-29T04:38:26 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[TC04]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[No]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestCase_01 -->
       </class> <!-- com.tricentis.sampleapp.Test.LoginTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
