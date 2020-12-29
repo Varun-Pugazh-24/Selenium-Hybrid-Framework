@@ -1,13 +1,17 @@
 package com.tricentis.sampleapp.Test;
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.tricentis.sampleapp.Base.TestLogger;
 import com.tricentis.sampleapp.TestEngine.KeywordEngine;
+import com.tricentis.sampleapp.Utilities.ExtentTestNGListeners;
 
-public class LoginTest extends KeywordEngine {
+@Listeners(ExtentTestNGListeners.class)
+public class Test1 extends KeywordEngine {
 
 	
 	@Test(dataProvider = "TestSuiteSheet")
@@ -18,15 +22,17 @@ public class LoginTest extends KeywordEngine {
 			KeywordEngine.startExecution(TestCase).forEach((actual, expected) -> Assert.assertEquals(actual, expected));
 		}else {
 			TestLogger.info("Run status is no so this test case will not run");
+			throw new SkipException("Test Case Skipped");
 			
-		}
+			
+		}   
 		TestLogger.endTestCase(TestCase);
 	}
 
 	@DataProvider(name = "TestSuiteSheet")
 	public Object[][] TestSuiteSheet() {
 
-		return getTestSuiteArray("TestSuite");
+		return getTestDataSheet("TestSuite");
 	}
 
 }

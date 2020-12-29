@@ -14,8 +14,8 @@ import com.tricentis.sampleapp.Base.Base;
 import com.tricentis.sampleapp.Base.BrowserFactory;
 import com.tricentis.sampleapp.Base.DriverFactory;
 import com.tricentis.sampleapp.Base.TestLogger;
-import com.tricentis.sampleapp.Utilities.ReadWriteExcel;
-import com.tricentis.sampleapp.Utilities.ReadWriteExcel.Builder;
+import com.tricentis.sampleapp.Utilities.ExcelOperations;
+import com.tricentis.sampleapp.Utilities.ExcelOperations.Builder;
 
 public class KeywordEngine extends Base {
 
@@ -39,7 +39,7 @@ public class KeywordEngine extends Base {
 		String locatorType = null;
 		String locatorValue = null;
 
-		Builder ExcelBuilder = new ReadWriteExcel.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
+		Builder ExcelBuilder = new ExcelOperations.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
 
 		 int RowCount = ExcelBuilder.build().GetRowCount();
 		 TestLogger.info("Excel started with sheet - "+sheetName);
@@ -56,17 +56,17 @@ public class KeywordEngine extends Base {
 
 				switch (action) {
 				case "open browser":
-					prop = Base.init_properties();
+					prop = Base.initProperties();
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
 						TestLogger.info("Opening "+prop.getProperty("browser")+" Browser");
-						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(prop.getProperty("browser")));
+						DriverFactory.getInstance().setDriver(BrowserFactory.initDriver(prop.getProperty("browser")));
 						driver = DriverFactory.getInstance().getDriver();
 
 
 					} else {
 						TestLogger.info("Opening "+value+" Browser");
-						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(value));
+						DriverFactory.getInstance().setDriver(BrowserFactory.initDriver(value));
 						driver = DriverFactory.getInstance().getDriver();
 					}
 					break;

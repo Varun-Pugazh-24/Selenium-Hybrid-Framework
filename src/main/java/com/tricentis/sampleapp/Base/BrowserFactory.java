@@ -23,31 +23,31 @@ public class BrowserFactory extends Base {
 	static FirefoxDriver firefoxdriver;
 	static OperaDriver operadriver;
 
-	public static WebDriver init_driver(String browserName) throws Exception {
+	public static WebDriver initDriver(String browserName) throws Exception {
 
 		switch (browserName.toLowerCase()) {
 
 		case "chrome":
-			return StartChromeBrowser();
+			return startChromeBrowser();
 
 		case "ie":
-			return StartIEBrowser();
+			return startIEBrowser();
 
 		case "edge":
-			return StartEdgeBrowser();
+			return startEdgeBrowser();
 
 		case "firefox":
-			return StartFireFoxBrowser();
+			return startFireFoxBrowser();
 
 		case "opera":
-			return StartOperaBrowser();
+			return startOperaBrowser();
 
 		}
 		return null;
 
 	}
 
-	public static ChromeDriver StartChromeBrowser() {
+	public static ChromeDriver startChromeBrowser() {
 
 		ChromeOptions options = new ChromeOptions();
 		if (prop.getProperty("headless").equals("yes")) {
@@ -71,7 +71,7 @@ public class BrowserFactory extends Base {
 		return chromedriver;
 	}
 
-	public static InternetExplorerDriver StartIEBrowser() {
+	public static InternetExplorerDriver startIEBrowser() {
 
 		WebDriverManager.iedriver().arch32().setup();
 		// System.setProperty("webdriver.ie.driver", prop.getProperty("IEDriver"));
@@ -81,7 +81,7 @@ public class BrowserFactory extends Base {
 		return iedriver;
 	}
 
-	public static EdgeDriver StartEdgeBrowser() {
+	public static EdgeDriver startEdgeBrowser() {
 		WebDriverManager.edgedriver().arch32().setup();
 		// System.setProperty("webdriver.edge.driver", prop.getProperty("EdgeDriver"));
 		edgedriver = new EdgeDriver();
@@ -90,7 +90,7 @@ public class BrowserFactory extends Base {
 		return edgedriver;
 	}
 
-	public static FirefoxDriver StartFireFoxBrowser() {
+	public static FirefoxDriver startFireFoxBrowser() {
 		FirefoxOptions options = new FirefoxOptions();
 		if (prop.getProperty("headless").equals("yes")) {
 			options.addArguments("--headless");
@@ -113,7 +113,7 @@ public class BrowserFactory extends Base {
 		return firefoxdriver;
 	}
 
-	public static OperaDriver StartOperaBrowser() {
+	public static OperaDriver startOperaBrowser() {
 		OperaOptions options = new OperaOptions();
 		if (prop.getProperty("headless").equals("yes")) {
 			options.addArguments("--headless");

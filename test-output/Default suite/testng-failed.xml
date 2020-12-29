@@ -3,11 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.tricentis.sampleapp.Test.LoginTest">
+      <class name="com.tricentis.sampleapp.Test.Test2">
         <methods>
-          <include name="TestCase_01" invocation-numbers="1"/>
+          <include name="tearDown"/>
+          <include name="LaunchApplication"/>
+          <include name="TestCase1"/>
         </methods>
-      </class> <!-- com.tricentis.sampleapp.Test.LoginTest -->
+      </class> <!-- com.tricentis.sampleapp.Test.Test2 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

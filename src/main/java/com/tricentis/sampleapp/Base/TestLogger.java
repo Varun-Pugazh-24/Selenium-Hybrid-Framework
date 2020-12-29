@@ -13,7 +13,7 @@ public class TestLogger extends Base {
 	static Properties properties;
 	public static synchronized void startTestCase(String sTestCaseName) {
 		sTestCaseName = sTestCaseName.replaceAll("[^a-zA-Z0-9]", "_").replaceAll("_+", "_");
-		properties = Base.init_properties();
+		properties = Base.initProperties();
 		startLog(properties.getProperty("logfilespath"), sTestCaseName);
 		info("\n\n************** Execution Started : " + sTestCaseName + "**************\n");
 	}
