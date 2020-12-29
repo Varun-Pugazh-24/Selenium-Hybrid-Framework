@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import com.tricentis.sampleapp.Base.Base;
 import com.tricentis.sampleapp.Base.BrowserFactory;
 import com.tricentis.sampleapp.Base.DriverFactory;
+import com.tricentis.sampleapp.Base.TestLogger;
 import com.tricentis.sampleapp.Utilities.ReadWriteExcel;
 import com.tricentis.sampleapp.Utilities.ReadWriteExcel.Builder;
 
@@ -41,7 +42,8 @@ public class KeywordEngine extends Base {
 		Builder ExcelBuilder = new ReadWriteExcel.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
 
 		 int RowCount = ExcelBuilder.build().GetRowCount();
-
+		 TestLogger.info("Excel started with sheet - "+sheetName);
+		 TestLogger.info("Row Count is - "+RowCount);
 		for (int i = 0; i < RowCount; i++) {
 
 			try {
@@ -57,12 +59,13 @@ public class KeywordEngine extends Base {
 					prop = Base.init_properties();
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
-						
+						TestLogger.info("Opening "+prop.getProperty("browser")+" Browser");
 						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(prop.getProperty("browser")));
 						driver = DriverFactory.getInstance().getDriver();
 
 
 					} else {
+						TestLogger.info("Opening "+value+" Browser");
 						DriverFactory.getInstance().setDriver(BrowserFactory.init_driver(value));
 						driver = DriverFactory.getInstance().getDriver();
 					}
@@ -71,12 +74,12 @@ public class KeywordEngine extends Base {
 				case "enter url":
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
-
+						TestLogger.info("Entered URL - "+prop.getProperty("url"));
 						driver.get(prop.getProperty("url"));
 						Thread.sleep(2000);
 
 					} else {
-
+						TestLogger.info("Entered URL - "+value);
 						driver.get(value);
 						Thread.sleep(2000);
 					}
@@ -84,6 +87,7 @@ public class KeywordEngine extends Base {
 
 				case "quit":
 					Thread.sleep(2000);
+					TestLogger.info("Browser Closed");
 					DriverFactory.getInstance().getDriver().quit();
 					break;
 
@@ -155,26 +159,33 @@ public class KeywordEngine extends Base {
 		if (action.equalsIgnoreCase("sendkeys")) {
 			element.clear();
 			element.sendKeys(value);
-
+			
+			TestLogger.info(testStep+" - "+value);
 		} else if (action.equalsIgnoreCase("click")) {
 			element.click();
+			TestLogger.info(testStep+" - "+value);
 		} else if (action.equalsIgnoreCase("isDisplayed")) {
 			Thread.sleep(2000);
 			element.isDisplayed();
+			TestLogger.info(testStep+" - "+value);
 		} else if (action.equalsIgnoreCase("getText")) {
 			Thread.sleep(2000);
 			String elementText = element.getText();
+			TestLogger.info(testStep+" - Expected :"+value+" and Actual :"+elementText);
 			assertData.put(elementText, value);
 		} else if (action.equalsIgnoreCase("isSelected")) {
 			Thread.sleep(2000);
 			element.isSelected();
+			TestLogger.info(testStep+" - "+value);
 		} else if (action.equalsIgnoreCase("isEnabled")) {
 			Thread.sleep(2000);
 			element.isEnabled();
+			TestLogger.info(testStep+" - "+value);
 		} else if (action.equalsIgnoreCase("select")) {
 			Thread.sleep(2000);
 			select = new Select(element);
 			select.selectByValue(value);
+			TestLogger.info(testStep+" - "+value);
 		}
 	}
 
