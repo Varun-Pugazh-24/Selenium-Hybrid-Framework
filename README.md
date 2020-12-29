@@ -10,6 +10,7 @@ Features of this framework:
             Cross Browser - Chrome, IE, Edge, Firefox, Opera
             Threadsafe logger
             Threadsafe extent report which creates screenshot if any testcase fails
+            Parallel Test Execution
 
 Upcoming Features:
 
