@@ -1,6 +1,5 @@
 package com.tricentis.sampleapp.Test;
 
-import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;

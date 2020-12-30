@@ -11,10 +11,10 @@ Features of this framework:
             Threadsafe logger
             Threadsafe extent report which creates screenshot if any testcase fails
             Parallel Test Execution
+            Send Extent report via Mail using Java Mail API
 
 Upcoming Features:
 
-            Send Extent report via Mail
             PDF Validation
             Page Object Model
             Dockerised Selenium Grid

@@ -21,12 +21,12 @@ public class Test2 extends BaseTest {
 
 		ActionEngine ae = new ActionEngine();
 
-		ae.click_custom(DriverFactory.getInstance().getDriver().findElement(By.linkText("Automobile")),
+		ae.click(DriverFactory.getInstance().getDriver().findElement(By.linkText("Automobile")),
 				"Auto Mobile Link");
 		Thread.sleep(2000);
-		ae.selectDropDownByValue_custom(DriverFactory.getInstance().getDriver().findElement(By.id("make")), "Make",
+		ae.selectDropDownByValue(DriverFactory.getInstance().getDriver().findElement(By.id("make")), "Make",
 				"Audi");
-		ae.sendKeys_custom(DriverFactory.getInstance().getDriver().findElement(By.id("engineperormance")),
+		ae.sendKeys(DriverFactory.getInstance().getDriver().findElement(By.id("engineperormance")),
 				"EnginePerf", "125");
 		
 
@@ -38,12 +38,12 @@ public class Test2 extends BaseTest {
 		
 		ActionEngine ae = new ActionEngine();  
 
-		ae.click_custom(DriverFactory.getInstance().getDriver().findElement(By.linkText("Automobile")),
+		ae.click(DriverFactory.getInstance().getDriver().findElement(By.linkText("Automobile")),
 				"Auto Mobile Link");
 		Thread.sleep(2000);
-		ae.selectDropDownByValue_custom(DriverFactory.getInstance().getDriver().findElement(By.id("make")), "Make",
+		ae.selectDropDownByValue(DriverFactory.getInstance().getDriver().findElement(By.id("make")), "Make",
 				"Audi");
-		ae.sendKeys_custom(DriverFactory.getInstance().getDriver().findElement(By.id("engineperformance")),
+		ae.sendKeys(DriverFactory.getInstance().getDriver().findElement(By.id("engineperformance")),
 				"EnginePerf", "125");
 
 

@@ -56,6 +56,7 @@ public class ExtentTestNGListeners implements ITestListener{
 		}
 		ExtentFactory.getInstance().getExtent().addScreenCaptureFromPath(screenshotPath, "Test case failure screenshot");
 		ExtentFactory.getInstance().removeExtentObject();
+		
 
 	}
 
@@ -81,6 +82,14 @@ public class ExtentTestNGListeners implements ITestListener{
 	public void onFinish(ITestContext context) {
 		//close extent
 		report.flush();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+		}
+		//Send Email with attached extent report
+		EmailUtil.sendEmail(MailSetup.GMailSession(), "varunprasadi10@gmail.com","Sending from java mail api", "Body of the mail 2", MailSetup.getLatestReport());
 	}
+	
+	
 
 }

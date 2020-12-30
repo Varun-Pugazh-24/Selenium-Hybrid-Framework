@@ -123,14 +123,14 @@ public class KeywordEngine extends Base {
 				case "linkText":
 
 					element = DriverFactory.getInstance().getDriver().findElement(By.linkText(locatorValue));
-					actionEngine.click_custom(element, testStep);
+					actionEngine.click(element, testStep);
 					locatorType = null;
 					break;
 
 				case "partialLinkText":
 
 					element = DriverFactory.getInstance().getDriver().findElement(By.partialLinkText(locatorValue));
-					actionEngine.click_custom(element, testStep);
+					actionEngine.click(element, testStep);
 					locatorType = null;
 					break;
 
@@ -149,29 +149,29 @@ public class KeywordEngine extends Base {
 	private static void locatorAction(String action, String value) throws Throwable {
 
 		if (action.equalsIgnoreCase("sendkeys")) {
-			actionEngine.clear_custom(element, testStep);
-			actionEngine.sendKeys_custom(element, testStep, value);
+			actionEngine.clear(element, testStep);
+			actionEngine.sendKeys(element, testStep, value);
 		} else if (action.equalsIgnoreCase("click")) {
-			actionEngine.click_custom(element, testStep);
+			actionEngine.click(element, testStep);
 		} else if (action.equalsIgnoreCase("isDisplayed")) {
 			Thread.sleep(2000);
-			boolean isPresent = actionEngine.isElementPresent_custom(element, testStep);
-			actionEngine.assertTrue_custom(isPresent, testStep);
+			boolean isPresent = actionEngine.isDisplayed(element, testStep);
+			actionEngine.assertTrue(isPresent, testStep);
 		} else if (action.equalsIgnoreCase("getText")) {
 			Thread.sleep(2000);
-			String elementText = actionEngine.getText_custom(element, testStep);
-			actionEngine.assertEqualsString_custom(elementText, value, testStep);
+			String elementText = actionEngine.getText(element, testStep);
+			actionEngine.assertEqualsString(elementText, value, testStep);
 		} else if (action.equalsIgnoreCase("isSelected")) {
 			Thread.sleep(2000);
-			boolean isSelected = actionEngine.isElementSelected_custom(element, testStep);
-			actionEngine.assertTrue_custom(isSelected, testStep);
+			boolean isSelected = actionEngine.isSelected(element, testStep);
+			actionEngine.assertTrue(isSelected, testStep);
 		} else if (action.equalsIgnoreCase("isEnabled")) {
 			Thread.sleep(2000);
-			boolean isEnabled = actionEngine.isElementEnabled_custom(element, testStep);
-			actionEngine.assertTrue_custom(isEnabled, testStep);
+			boolean isEnabled = actionEngine.isEnabled(element, testStep);
+			actionEngine.assertTrue(isEnabled, testStep);
 		} else if (action.equalsIgnoreCase("select")) {
 			Thread.sleep(2000);
-			actionEngine.selectDropDownByValue_custom(element, testStep, value);
+			actionEngine.selectDropDownByValue(element, testStep, value);
 		}
 	}
 

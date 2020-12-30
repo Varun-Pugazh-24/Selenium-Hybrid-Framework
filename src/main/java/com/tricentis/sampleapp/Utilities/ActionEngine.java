@@ -15,7 +15,7 @@ import com.tricentis.sampleapp.Base.TestLogger;
 public class ActionEngine {
 
 	// Customized sendkeys method-> To log sendkeys message for every occ.
-	public void sendKeys_custom(WebElement element, String fieldName, String valueToBeSent) {
+	public void sendKeys(WebElement element, String fieldName, String valueToBeSent) {
 		try {
 			element.sendKeys(valueToBeSent);
 			// log success message in exgent report
@@ -31,7 +31,7 @@ public class ActionEngine {
 	}
 
 	// custom click method to log evey click action in to extent report
-	public void click_custom(WebElement element, String fieldName) {
+	public void click(WebElement element, String fieldName) {
 		try {
 			element.click();
 			// log success message in exgent report
@@ -46,7 +46,7 @@ public class ActionEngine {
 	}
 
 	// clear data from field
-	public void clear_custom(WebElement element, String fieldName) {
+	public void clear(WebElement element, String fieldName) {
 		try {
 			element.clear();
 			Thread.sleep(250);
@@ -60,7 +60,7 @@ public class ActionEngine {
 	}
 
 	// custom mouseHover
-	public void moveToElement_custom(WebElement element, String fieldName) {
+	public void goToWebElement(WebElement element, String fieldName) {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor) DriverFactory.getInstance().getDriver();
 			executor.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -78,7 +78,7 @@ public class ActionEngine {
 	}
 
 	// check if element is Present
-	public boolean isElementPresent_custom(WebElement element, String fieldName) {
+	public boolean isDisplayed(WebElement element, String fieldName) {
 		boolean flag = false;
 		try {
 			flag = element.isDisplayed();
@@ -94,7 +94,7 @@ public class ActionEngine {
 	}
 	
 	// check if element is selected
-		public boolean isElementSelected_custom(WebElement element, String fieldName) {
+		public boolean isSelected(WebElement element, String fieldName) {
 			boolean flag = false;
 			try {
 				flag = element.isSelected();
@@ -110,7 +110,7 @@ public class ActionEngine {
 		}
 		
 		// check if element is selected
-				public boolean isElementEnabled_custom(WebElement element, String fieldName) {
+				public boolean isEnabled(WebElement element, String fieldName) {
 					boolean flag = false;
 					try {
 						flag = element.isEnabled();
@@ -126,7 +126,7 @@ public class ActionEngine {
 				}
 
 	// Select dropdown value value by visibleText
-	public void selectDropDownByVisibleText_custom(WebElement element, String fieldName, String ddVisibleText)
+	public void selectDropDownByVisibleText(WebElement element, String fieldName, String ddVisibleText)
 			throws Throwable {
 		try {
 			Select s = new Select(element);
@@ -142,7 +142,7 @@ public class ActionEngine {
 	}
 
 	// Select dropdown value value by value
-	public void selectDropDownByValue_custom(WebElement element, String fieldName, String ddValue) throws Throwable {
+	public void selectDropDownByValue(WebElement element, String fieldName, String ddValue) throws Throwable {
 		try {
 			Select s = new Select(element);
 			s.selectByValue(ddValue);
@@ -157,7 +157,7 @@ public class ActionEngine {
 	}
 
 	// String Asserts
-	public void assertEqualsString_custom(String expvalue, String actualValue, String locatorName) throws Throwable {
+	public void assertEqualsString(String expvalue, String actualValue, String locatorName) throws Throwable {
 		try {
 			if (actualValue.equals(expvalue)) {
 				ExtentFactory.getInstance().getExtent().log(Status.PASS, "String Assertion is successful on field "
@@ -177,7 +177,7 @@ public class ActionEngine {
 		}
 	}
 
-	public void assertTrue_custom(boolean bool, String fieldName) {
+	public void assertTrue(boolean bool, String fieldName) {
 
 		try {
 			if (bool) {
@@ -198,7 +198,7 @@ public class ActionEngine {
 	}
 
 	// Get text from webelement
-	public String getText_custom(WebElement element, String fieldName) {
+	public String getText(WebElement element, String fieldName) {
 		String text = "";
 		try {
 			text = element.getText();
