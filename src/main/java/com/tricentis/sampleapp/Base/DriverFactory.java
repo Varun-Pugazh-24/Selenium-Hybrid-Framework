@@ -2,6 +2,8 @@ package com.tricentis.sampleapp.Base;
 
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.Status;
+
 public class DriverFactory {
 
 	private DriverFactory() {
@@ -32,7 +34,8 @@ public class DriverFactory {
 
 		driver.get().close();
 		driver.remove();
-
+		ExtentFactory.getInstance().getExtent().log(Status.PASS, "Browser Closed");
+		TestLogger.info("Browser Closed");
 	}
 
 }

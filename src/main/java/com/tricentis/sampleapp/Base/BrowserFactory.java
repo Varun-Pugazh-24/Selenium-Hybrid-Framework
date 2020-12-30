@@ -12,6 +12,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 
+import com.aventstack.extentreports.Status;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BrowserFactory extends Base {
@@ -56,6 +58,8 @@ public class BrowserFactory extends Base {
 			// System.setProperty("webdriver.chrome.driver",
 			// prop.getProperty("ChromeDriver"));
 			chromedriver = new ChromeDriver(options);
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Chrome browser started in headless mode");
+			TestLogger.info("==> Chrome browser started in headless mode");
 			chromedriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		} else {
 			options.addArguments("--disable-notifications");
@@ -63,6 +67,8 @@ public class BrowserFactory extends Base {
 			// System.setProperty("webdriver.chrome.driver",
 			// prop.getProperty("ChromeDriver"));
 			chromedriver = new ChromeDriver(options);
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Chrome browser started");
+			TestLogger.info("==> Chrome browser started");
 			chromedriver.manage().window().maximize();
 			chromedriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -76,6 +82,8 @@ public class BrowserFactory extends Base {
 		WebDriverManager.iedriver().arch32().setup();
 		// System.setProperty("webdriver.ie.driver", prop.getProperty("IEDriver"));
 		iedriver = new InternetExplorerDriver();
+		ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> InternetExplorer browser started");
+		TestLogger.info("==> InternetExplorer browser started");
 		iedriver.manage().window().maximize();
 		iedriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		return iedriver;
@@ -85,6 +93,8 @@ public class BrowserFactory extends Base {
 		WebDriverManager.edgedriver().arch32().setup();
 		// System.setProperty("webdriver.edge.driver", prop.getProperty("EdgeDriver"));
 		edgedriver = new EdgeDriver();
+		ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Edge browser started");
+		TestLogger.info("==> Edge browser started");
 		edgedriver.manage().window().maximize();
 		edgedriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		return edgedriver;
@@ -98,6 +108,8 @@ public class BrowserFactory extends Base {
 			// System.setProperty("webdriver.gecko.driver",
 			// prop.getProperty("FireFoxDriver"));
 			firefoxdriver = new FirefoxDriver();
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Firefox browser started in headless mode");
+			TestLogger.info("==> Firefox browser started in headless mode");
 			firefoxdriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		} else {
@@ -105,6 +117,8 @@ public class BrowserFactory extends Base {
 			// WebDriverManager.firefoxdriver().arch32().setup();
 			System.setProperty("webdriver.gecko.driver", prop.getProperty("FireFoxDriver"));
 			firefoxdriver = new FirefoxDriver();
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Firefox browser started");
+			TestLogger.info("==> Firefox browser started");
 			firefoxdriver.manage().window().maximize();
 			firefoxdriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -121,6 +135,8 @@ public class BrowserFactory extends Base {
 			// System.setProperty("webdriver.opera.driver",
 			// prop.getProperty("OperaDriver"));
 			operadriver = new OperaDriver();
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Opera browser started in headless mode");
+			TestLogger.info("==> Opera browser started in headless mode");
 			operadriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		} else {
 			options.addArguments("--disable-notifications");
@@ -128,6 +144,8 @@ public class BrowserFactory extends Base {
 			// System.setProperty("webdriver.opera.driver",
 			// prop.getProperty("OperaDriver"));
 			operadriver = new OperaDriver();
+			ExtentFactory.getInstance().getExtent().log(Status.PASS,"==> Opera browser started");
+			TestLogger.info("==> Opera browser started");
 			operadriver.manage().window().maximize();
 			operadriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 

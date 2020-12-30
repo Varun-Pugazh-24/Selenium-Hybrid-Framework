@@ -1,38 +1,59 @@
 package com.tricentis.sampleapp.Test;
 
-import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
+import com.tricentis.sampleapp.Base.Base;
+import com.tricentis.sampleapp.Base.DriverFactory;
+import com.tricentis.sampleapp.Base.ExtentFactory;
 import com.tricentis.sampleapp.Base.TestLogger;
 import com.tricentis.sampleapp.TestEngine.KeywordEngine;
 import com.tricentis.sampleapp.Utilities.ExtentTestNGListeners;
 
 @Listeners(ExtentTestNGListeners.class)
-public class Test1 extends KeywordEngine {
+public class Test1 {
 
+	public static String tc = null;
+	
 	
 	@Test(dataProvider = "TestSuiteSheet")
-	public void TestCase(String TestCase, String YesorNo) {
-		TestLogger.startTestCase(TestCase);
-		if (YesorNo.equalsIgnoreCase("yes")) {
-			TestLogger.info("Run status is yes");
-			KeywordEngine.startExecution(TestCase).forEach((actual, expected) -> Assert.assertEquals(actual, expected));
+	public void TestCase(String testCase, String isSkipped) throws Throwable {
+		tc = testCase;
+		TestLogger.startTestCase(testCase);
+		ExtentFactory.getInstance().getExtent().log(Status.PASS, testCase+" is Started");
+		if (isSkipped.equalsIgnoreCase("no")) {
+			KeywordEngine.startExecution(testCase);
 		}else {
-			TestLogger.info("Run status is no so this test case will not run");
+			TestLogger.warn(testCase+" is Skipped");
+			ExtentFactory.getInstance().getExtent().log(Status.SKIP, testCase+" is Skipped");
 			throw new SkipException("Test Case Skipped");
 			
 			
 		}   
-		TestLogger.endTestCase(TestCase);
+		
 	}
-
+	
+	
+	@AfterMethod
+	public void tearDown() {
+		TestLogger.endTestCase(tc);
+		try {
+			DriverFactory.getInstance().closeBrowser();
+		} catch (Exception e) {
+		}
+	}
+	
 	@DataProvider(name = "TestSuiteSheet")
 	public Object[][] TestSuiteSheet() {
 
-		return getTestDataSheet("TestSuite");
+		return Base.getTestDataSheet("TestSuite");
 	}
+	
+	
 
 }

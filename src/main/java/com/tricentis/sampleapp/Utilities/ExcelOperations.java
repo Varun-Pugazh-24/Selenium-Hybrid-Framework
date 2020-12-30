@@ -28,7 +28,8 @@ public class ExcelOperations {
 		this.excelPath = builder.bExcelPath;
 	}
 
-	public void WriteToExcel() {
+	public void writeToExcel() {
+		
 
 		try {
 			fis = new FileInputStream(this.getExcelPath());
@@ -43,7 +44,7 @@ public class ExcelOperations {
 
 	}
 
-	public String ReadFromExcel() {
+	public String readFromExcel() {
 
 		try {
 			fis = new FileInputStream(this.getExcelPath());
@@ -59,7 +60,7 @@ public class ExcelOperations {
 
 	}
 
-	public int GetRowCount() {
+	public int getRowCount() {
 
 		try {
 			fis = new FileInputStream(this.getExcelPath());

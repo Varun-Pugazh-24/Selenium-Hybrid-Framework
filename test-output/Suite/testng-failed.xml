@@ -3,13 +3,13 @@
 <suite thread-count="2" guice-stage="DEVELOPMENT" name="Failed suite [Suite]" parallel="methods">
   <test thread-count="2" name="Test(failed)" parallel="methods">
     <classes>
-      <class name="com.tricentis.sampleapp.Test.LoginTest2">
+      <class name="com.tricentis.sampleapp.Test.Test2">
         <methods>
           <include name="tearDown"/>
-          <include name="TestCase2"/>
           <include name="LaunchApplication"/>
+          <include name="TestCase1"/>
         </methods>
-      </class> <!-- com.tricentis.sampleapp.Test.LoginTest2 -->
+      </class> <!-- com.tricentis.sampleapp.Test.Test2 -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

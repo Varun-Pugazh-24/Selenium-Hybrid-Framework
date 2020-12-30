@@ -14,7 +14,7 @@ public class TestLogger extends Base {
 	public static synchronized void startTestCase(String sTestCaseName) {
 		sTestCaseName = sTestCaseName.replaceAll("[^a-zA-Z0-9]", "_").replaceAll("_+", "_");
 		properties = Base.initProperties();
-		startLog(properties.getProperty("logfilespath"), sTestCaseName);
+		startLog(System.getProperty("user.dir"), sTestCaseName);
 		info("\n\n************** Execution Started : " + sTestCaseName + "**************\n");
 	}
 

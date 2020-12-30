@@ -12,10 +12,12 @@ import com.tricentis.sampleapp.Utilities.ExtentTestNGListeners;
 @Listeners(ExtentTestNGListeners.class)
 public class Test2 extends BaseTest {
 
+
+
 	@Test
 	public void TestCase1() throws Throwable {
 
-		
+		System.out.println("Test Case 1"+Thread.currentThread().getId());
 
 		ActionEngine ae = new ActionEngine();
 
@@ -28,13 +30,13 @@ public class Test2 extends BaseTest {
 				"EnginePerf", "125");
 		
 
-	}
+	}  
 
 	@Test
 	public void TestCase2() throws Throwable {
-
+		System.out.println("Test Case 2"+Thread.currentThread().getId());
 		
-		ActionEngine ae = new ActionEngine();
+		ActionEngine ae = new ActionEngine();  
 
 		ae.click_custom(DriverFactory.getInstance().getDriver().findElement(By.linkText("Automobile")),
 				"Auto Mobile Link");

@@ -25,9 +25,9 @@ public class Base extends Constants {
 
 	}
 
-	public Object[][] getTestDataSheet(String sheetName) {
+	public static Object[][] getTestDataSheet(String sheetName) {
 		Builder ExcelBuilder = new ExcelOperations.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
-		int totalRows = ExcelBuilder.build().GetRowCount();
+		int totalRows = ExcelBuilder.build().getRowCount();
 		int totalColumns = ExcelBuilder.setRow(0).build().getColumnCount()-1;
 		int firstRow = 1;
 		int firstColumn = 1;
@@ -43,7 +43,7 @@ public class Base extends Constants {
 
 			for (int j = firstColumn; j <= totalColumns; j++, cj++) {
 
-				testDataSheetArray[ci][cj] = ExcelBuilder.setRow(i).setColumn(j).build().ReadFromExcel();
+				testDataSheetArray[ci][cj] = ExcelBuilder.setRow(i).setColumn(j).build().readFromExcel();
 
 			}
 
@@ -51,5 +51,5 @@ public class Base extends Constants {
 
 		return testDataSheetArray;
 	}
-
+	
 }
