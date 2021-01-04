@@ -12,13 +12,13 @@ Features of this framework:
             Threadsafe extent report which creates screenshot if any testcase fails
             Parallel Test Execution
             Send Extent report via Mail using Java Mail API
+            PDF Validation - Extracts text from both PDF with images and PDF without images
 
 Upcoming Features:
-
-            PDF Validation
-            Page Object Model
+            
             Dockerised Selenium Grid
-            Rest Assured
+            API Automation
+            Windows Automation
             and more..
             
             
