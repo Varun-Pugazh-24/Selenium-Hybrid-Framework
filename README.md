@@ -14,10 +14,4 @@ Features of this framework:
             Send Extent report via Mail using Java Mail API
             PDF Validation - Extracts text from both PDF with images and PDF without images
 
-Upcoming Features:
-            
-            Dockerised Selenium Grid
-            API Automation
-            Windows Automation
-            and more..
             
