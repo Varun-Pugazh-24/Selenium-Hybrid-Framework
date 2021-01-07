@@ -32,7 +32,7 @@ public class Test1 {
 			ExtentFactory.getInstance().getExtent().log(Status.SKIP, testCase+" is Skipped");
 			throw new SkipException("Test Case Skipped");
 		}   
-		
+		  
 	}
 	
 	
