@@ -31,8 +31,6 @@ public class Test1 {
 			TestLogger.warn(testCase+" is Skipped");
 			ExtentFactory.getInstance().getExtent().log(Status.SKIP, testCase+" is Skipped");
 			throw new SkipException("Test Case Skipped");
-			
-			
 		}   
 		
 	}
