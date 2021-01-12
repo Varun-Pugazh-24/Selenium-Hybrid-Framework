@@ -87,8 +87,12 @@ public class ExtentTestNGListeners implements ITestListener{
 		} catch (InterruptedException e) {
 		}
 		//Send Email with attached extent report
-		new EmailUtil.Builder().setSession(MailSetup.GMailSession()).setToEmail("varunprasadi10@gmail.com").setSubject("Sending from java mail api")
-		.setBody("Body of the mail").setAttachmentPath(MailSetup.getLatestReport()).build().sendEmail();
+		/*
+		 * new EmailUtil.Builder().setSession(MailSetup.GMailSession()).setToEmail(
+		 * "varunprasadi10@gmail.com").setSubject("Sending from java mail api")
+		 * .setBody("Body of the mail").setAttachmentPath(MailSetup.getLatestReport()).
+		 * build().sendEmail();
+		 */
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.tricentis.sampleapp.TestEngine;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -31,56 +32,60 @@ public class KeywordEngine extends Base {
 	public static String value = null;
 	public static String action = null;
 	
+
 	public static ActionEngine actionEngine = new ActionEngine();
 
 	public static void startExecution(String sheetName) throws Throwable {
- 
+
 		String locatorType = null;
 		String locatorValue = null;
 
 		Builder ExcelBuilder = new ExcelOperations.Builder(SCENARIO_SHEET_PATH).setSheetName(sheetName);
+		
 
-		 int RowCount = ExcelBuilder.build().getRowCount();
-		 TestLogger.info("Excel started with sheet - "+sheetName);
-		 TestLogger.info("Row Count is - "+RowCount);
-		for (int i = 0; i < RowCount; i++) {
+		int RowCount = ExcelBuilder.build().getRowCount();
+		TestLogger.info("Excel started with sheet - " + sheetName);
+		TestLogger.info("Row Count is - " + RowCount);
+		for (int i = 0; i <= RowCount; i++) {
 
 			try {
 
-				testStep = ExcelBuilder.setRow(i + 1).setColumn(0).build().readFromExcel();
-				locatorType = ExcelBuilder.setRow(i + 1).setColumn(1).build().readFromExcel();
-				locatorValue = ExcelBuilder.setRow(i + 1).setColumn(2).build().readFromExcel();
-				action = ExcelBuilder.setRow(i + 1).setColumn(3).build().readFromExcel();
-				value = ExcelBuilder.setRow(i + 1).setColumn(4).build().readFromExcel();
+				testStep = ExcelBuilder.setRow(i).setColumn(0).build().readFromExcel();
+				locatorType = ExcelBuilder.setRow(i).setColumn(1).build().readFromExcel();
+				locatorValue = ExcelBuilder.setRow(i).setColumn(2).build().readFromExcel();
+				action = ExcelBuilder.setRow(i).setColumn(3).build().readFromExcel();
+				value = ExcelBuilder.setRow(i).setColumn(4).build().readFromExcel();
 
-				
 				switch (action) {
 				case "open browser":
 					prop = Base.initProperties();
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
 						DriverFactory.getInstance().setDriver(BrowserFactory.initDriver(prop.getProperty("browser")));
-						
-
 
 					} else {
 						DriverFactory.getInstance().setDriver(BrowserFactory.initDriver(value));
+
 					}
 					break;
 
 				case "enter url":
 
 					if (value.isEmpty() || value.equalsIgnoreCase("NA")) {
-						ExtentFactory.getInstance().getExtent().log(Status.PASS, "Entered URL - "+prop.getProperty("url"));
-						TestLogger.info("Entered URL - "+prop.getProperty("url"));
+						ExtentFactory.getInstance().getExtent().log(Status.PASS,
+								"Entered URL - " + prop.getProperty("url"));
+						TestLogger.info("Entered URL - " + prop.getProperty("url"));
 						DriverFactory.getInstance().getDriver().get(prop.getProperty("url"));
-						Thread.sleep(2000);
+						DriverFactory.getInstance().getDriver().manage().timeouts().implicitlyWait(15,
+								TimeUnit.SECONDS);
 
 					} else {
-						ExtentFactory.getInstance().getExtent().log(Status.PASS, "Entered URL - "+value);
-						TestLogger.info("Entered URL - "+value);
+						ExtentFactory.getInstance().getExtent().log(Status.PASS, "Entered URL - " + value);
+						TestLogger.info("Entered URL - " + value);
 						DriverFactory.getInstance().getDriver().get(value);
-						Thread.sleep(2000);
+						DriverFactory.getInstance().getDriver().manage().timeouts().implicitlyWait(15,
+								TimeUnit.SECONDS);
+
 					}
 					break;
 
@@ -88,7 +93,6 @@ public class KeywordEngine extends Base {
 					break;
 				}
 
-				Thread.sleep(2000);
 				switch (locatorType) {
 				case "id":
 					element = DriverFactory.getInstance().getDriver().findElement(By.id(locatorValue));
@@ -143,36 +147,55 @@ public class KeywordEngine extends Base {
 
 		}
 
-
 	}
 
 	private static void locatorAction(String action, String value) throws Throwable {
 
-		if (action.equalsIgnoreCase("sendkeys")) {
+		switch (action) {
+		case "sendkeys":
 			actionEngine.clear(element, testStep);
 			actionEngine.sendKeys(element, testStep, value);
-		} else if (action.equalsIgnoreCase("click")) {
+
+			break;
+
+		case "click":
 			actionEngine.click(element, testStep);
-		} else if (action.equalsIgnoreCase("isDisplayed")) {
-			Thread.sleep(2000);
+
+			break;
+
+		case "isDisplayed":
 			boolean isPresent = actionEngine.isDisplayed(element, testStep);
 			actionEngine.assertTrue(isPresent, testStep);
-		} else if (action.equalsIgnoreCase("getText")) {
-			Thread.sleep(2000);
+
+			break;
+
+		case "getText":
 			String elementText = actionEngine.getText(element, testStep);
 			actionEngine.assertEqualsString(elementText, value, testStep);
-		} else if (action.equalsIgnoreCase("isSelected")) {
-			Thread.sleep(2000);
+
+			break;
+
+		case "isSelected":
 			boolean isSelected = actionEngine.isSelected(element, testStep);
 			actionEngine.assertTrue(isSelected, testStep);
-		} else if (action.equalsIgnoreCase("isEnabled")) {
-			Thread.sleep(2000);
+
+			break;
+
+		case "isEnabled":
 			boolean isEnabled = actionEngine.isEnabled(element, testStep);
 			actionEngine.assertTrue(isEnabled, testStep);
-		} else if (action.equalsIgnoreCase("select")) {
-			Thread.sleep(2000);
+
+			break;
+
+		case "select":
 			actionEngine.selectDropDownByValue(element, testStep, value);
+
+			break;
+
+		default:
+			break;
 		}
+
 	}
 
 }

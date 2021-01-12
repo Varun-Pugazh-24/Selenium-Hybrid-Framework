@@ -49,12 +49,8 @@ public class ActionEngine {
 	public void clear(WebElement element, String fieldName) {
 		try {
 			element.clear();
-			Thread.sleep(250);
-			ExtentFactory.getInstance().getExtent().log(Status.PASS, fieldName + "==> Data Cleared Successfully! ");
 			TestLogger.info(fieldName + "==> Data Cleared Successfully! ");
 		} catch (Exception e) {
-			ExtentFactory.getInstance().getExtent().log(Status.FAIL,
-					"Unable to clear Data on field: " + fieldName + " due to exception: " + e);
 			TestLogger.error("Unable to clear Data on field: " + fieldName + " due to exception: " + e);
 		}
 	}
@@ -68,7 +64,7 @@ public class ActionEngine {
 			actions.moveToElement(element).build().perform();
 			ExtentFactory.getInstance().getExtent().log(Status.PASS, fieldName + "==> Mouse hovered Successfully! ");
 			TestLogger.info(fieldName + "==> Mouse hovered Successfully! ");
-			Thread.sleep(1000);
+			
 		} catch (Exception e) {
 			ExtentFactory.getInstance().getExtent().log(Status.FAIL,
 					"Unable to hover mouse on field: " + fieldName + " due to exception: " + e);

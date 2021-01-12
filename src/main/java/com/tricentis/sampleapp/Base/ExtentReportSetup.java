@@ -29,10 +29,9 @@ public class ExtentReportSetup {
 		sparkReport.config().setReportName("Test Suite Report");
 		sparkReport.config().setTimelineEnabled(true);
 		
-		//extent.setSystemInfo("Executed on Environment: ", "url");
-		//extent.setSystemInfo("Executed on Browser: ", "browser");
-		extent.setSystemInfo("Executed on OS: ", System.getProperty("os.name"));
+		
 		extent.setSystemInfo("Executed by User: ", System.getProperty("user.name"));
+		extent.setSystemInfo("Executed on OS: ", System.getProperty("os.name"));
 
 		return extent;
 	}
